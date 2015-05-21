@@ -12,7 +12,7 @@ public class SCircle extends Shape {
 	}
 
 	public void setRadius(int i) {
-		this.radius = this.radius + i;
+		this.radius = i;
 	}
 
 	public Point getLoc() {
@@ -24,7 +24,7 @@ public class SCircle extends Shape {
 	}
 
 	public void translate(int x, int y) {
-
+		this.loc.translate(x, y);
 	}
 
 	public void accept(ShapeVisitor sv) {
@@ -32,7 +32,6 @@ public class SCircle extends Shape {
 	}
 
 	public Rectangle getBounds() {
-
-		return null;
+		return new Rectangle(2*radius,2*radius);
 	}
 }

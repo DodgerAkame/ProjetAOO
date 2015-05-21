@@ -23,6 +23,7 @@ public class SRectangle extends Shape {
 	public Point getLoc() {
 		return rect.getLocation(); // Retourne un point sur la position du
 									// rectangle
+									//le coin supérieur gauche
 	}
 
 	public void setLoc(Point p) {

@@ -21,21 +21,21 @@ public class SText extends Shape {
 
 	public Point getLoc() {
 
-		return null;
+		return loc.getLocation();
 	}
 
 	public void setLoc(Point p) {
-
+		this.loc.setLocation(p);
 	}
 
 	public void translate(int x, int y) {
 		// TODO Auto-generated method stub
-
+		this.loc.translate(x,y);
 	}
 
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
-		return null;
+		return null; //je vois pas comment avoir les bords d'un texte
 	}
 
 	public void accept(ShapeVisitor sv) {
