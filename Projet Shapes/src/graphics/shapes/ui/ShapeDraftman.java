@@ -15,7 +15,7 @@ public class ShapeDraftman implements ShapeVisitor {
 	private ColorAttributes color;
 	private Graphics2D g;
 
-	public static final ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes(
+	public ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes(
 			true, false, color.BLACK, color.BLACK);
 
 	public ShapeDraftman(Graphics2D g) {
