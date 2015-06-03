@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/home/wildcerebrus/Github/AOO/ProjetAOO/.metadata/.plugins/org.eclipse.jdt.core
-1522468910.index
