@@ -1,14 +1,20 @@
 package graphics.shapes;
 
-import java.awt.*;
+import graphics.shapes.attributes.FontAttributes;
+
+import java.awt.Point;
+import java.awt.Rectangle;
 
 public class SText extends Shape {
 
 	private String text;
 	private Point loc;
 
-	public SText() {
-
+	public SText(Point point, String string) {
+		super(); // On passe a la super classe, je crois que c'est parce que le
+					// texte est dans un cadre
+		this.loc = point;
+		this.text = string;
 	}
 
 	public String getText() {
@@ -20,7 +26,6 @@ public class SText extends Shape {
 	}
 
 	public Point getLoc() {
-
 		return loc.getLocation();
 	}
 
@@ -30,17 +35,22 @@ public class SText extends Shape {
 
 	public void translate(int x, int y) {
 		// TODO Auto-generated method stub
-		this.loc.translate(x,y);
+		this.loc.translate(x, y);
 	}
 
 	public Rectangle getBounds() {
 		// TODO Auto-generated method stub
-		return null; //je vois pas comment avoir les bords d'un texte
+		FontAttributes fa = (FontAttributes) this.getAttributes("Font");
+		Rectangle result=fa.getBounds(text);
+		result.setLocation(loc.x-2, loc.y-result.height);
+		result.height=result.height+3;
+		result.width=result.width+6;
+		return result;
+		//C'est moche
 	}
 
 	public void accept(ShapeVisitor sv) {
-		// TODO Auto-generated method stub
-
+		sv.visitText(this);
 	}
 
 }
