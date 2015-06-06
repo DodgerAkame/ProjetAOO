@@ -7,9 +7,9 @@ import java.util.Iterator;
 
 public class SCollection extends Shape {
 
-	public Iterator iterator;
-	public ArrayList liste;
-	public Rectangle borders;
+	private Iterator iterator;
+	private ArrayList liste;
+	private Rectangle borders;
 
 	public SCollection() {
 		liste = new ArrayList();
