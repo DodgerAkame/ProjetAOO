@@ -9,11 +9,16 @@ import java.awt.Graphics2D;
 
 public class ShapesView extends View {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1732482651961386050L;
+
 	public ShapesView(Object model) {
 		super(model);
 	}
 
-	public void paintComponant(Graphics g) {
+	protected void paintComponant(Graphics g) {
 		super.paintComponent(g);
 		System.out.println("Test");
 
@@ -27,4 +32,6 @@ public class ShapesView extends View {
 	public Controller defaultController(Object model) {
 		return new ShapesController(model);
 	}
+
+
 }
