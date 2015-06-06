@@ -7,16 +7,16 @@ import java.util.Iterator;
 
 public class SCollection extends Shape {
 
-	public Iterator iterator;
-	public ArrayList<Shape> liste;
-	public Rectangle borders;
+	private Iterator iterator;
+	private ArrayList liste;
+	private Rectangle borders;
 
 	public SCollection() {
-		liste = new ArrayList<Shape>();
+		liste = new ArrayList();
 	}
 
 	public Iterator iterator() {
-		return null; //J'ai pas trouve la fonction pour ca
+		return null;
 	}
 
 	public void add(Shape s) {
@@ -45,7 +45,7 @@ public class SCollection extends Shape {
 
 	public void accept(ShapeVisitor sv) {
 		// TODO Auto-generated method stub
-		sv.visitCollection(this);
+		
 	}
 
 }

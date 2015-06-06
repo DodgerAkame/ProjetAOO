@@ -7,10 +7,10 @@ import java.util.*;
 
 public abstract class Shape {
 
-	private HashMap<String, Attributes> attributes;
+	private HashMap attributes;
 
 	public Shape() {
-		attributes = new HashMap<String, Attributes>();
+		attributes = new HashMap();
 	}
 
 	public void addAttributes(Attributes a) {

@@ -7,11 +7,6 @@ public class SCircle extends Shape {
 	private int radius;
 	private Point loc;
 
-	public SCircle(Point point, int radius){
-		this.loc= point;
-		this.radius=radius;
-	}
-	
 	public int getRadius() {
 		return this.radius;
 	}
@@ -33,7 +28,7 @@ public class SCircle extends Shape {
 	}
 
 	public void accept(ShapeVisitor sv) {
-		sv.visitCircle(this);
+
 	}
 
 	public Rectangle getBounds() {

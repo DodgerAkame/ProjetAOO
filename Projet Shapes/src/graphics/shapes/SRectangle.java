@@ -1,9 +1,9 @@
 package graphics.shapes;
 
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.*;
 //Faire un toString
 //Pour getBounds,faire un clone (cela evite les problemes avec la reference de l'objet)
+import graphics.shapes.ui.*;
 
 public class SRectangle extends Shape {
 
