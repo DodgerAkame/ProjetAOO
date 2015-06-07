@@ -5,33 +5,43 @@ import java.awt.Rectangle;
 
 public class SFemale extends SPeople {
 
+	private SCircle Border;
+	
 	SFemale() {
 		super();
-		setBorder(new SCircle());
+		setBorder(new SCircle(null, 0));
 	}
 	
+	private void setBorder(SCircle sCircle) {
+		this.Border=sCircle;
+	}
+
 	@Override
 	public Point getLoc() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getBorder().getLoc();
 	}
 
 	@Override
 	public void setLoc(Point p) {
-		// TODO Auto-generated method stub
-		
+		this.Border.setLoc(p);
+	}
+	
+	public void setRad(int r) {
+		Point p=this.getBorder().getLoc();
+		setBorder(new SCircle(p,r));
 	}
 
 	@Override
 	public void translate(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		Point loc=this.getBorder().getLoc();
+		loc.x+=x;
+		loc.y+=y;
+		setLoc(loc);
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getBounds();
 	}
 
 	@Override
@@ -46,9 +56,7 @@ public class SFemale extends SPeople {
 		return 0;
 	}
 
-	@Override
-	Shape getBorder() {
-		// TODO Auto-generated method stub
-		return null;
+	public SCircle getBorder() {
+		return this.Border;
 	}
 }

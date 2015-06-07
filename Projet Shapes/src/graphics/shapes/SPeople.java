@@ -2,7 +2,6 @@ package graphics.shapes;
 
 abstract class SPeople extends Shape {
 	
-	private Shape Border;
 	private SMale father;
 	private SFemale mother;
 	private SPeople[] children;
@@ -12,13 +11,6 @@ abstract class SPeople extends Shape {
 		father = new SMale();
 		mother = new SFemale();
 		Nbchild=0;
-	}
-	
-	abstract Shape getBorder();
-	
-	public int setBorder(Shape shape) {
-		this.Border=shape;
-		return 0;
 	}
 	
 	public int displayA(int x,int y) { //affiche une personne

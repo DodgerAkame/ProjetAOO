@@ -5,33 +5,33 @@ import java.awt.Rectangle;
 
 public class SMale extends SPeople {
 
+	private SRectangle Border;
+	
 	SMale() {
 		super();
 		setBorder(new SRectangle(null, 0, 0));
 	}
 	
-	@Override
-	public Point getLoc() {
-		// TODO Auto-generated method stub
-		return null;
+	private void setBorder(SRectangle sr) {
+		this.Border=sr;
 	}
 
 	@Override
-	public void setLoc(Point p) {
-		// TODO Auto-generated method stub
-		
+	public Point getLoc() {
+		return this.getBorder().getLoc();
 	}
 
 	@Override
 	public void translate(int x, int y) {
-		// TODO Auto-generated method stub
-		
+		Point loc=this.getBorder().getLoc();
+		loc.x+=x;
+		loc.y+=y;
+		setLoc(loc);		
 	}
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getBounds();
 	}
 
 	@Override
@@ -46,9 +46,12 @@ public class SMale extends SPeople {
 		return 0;
 	}
 
+	public Shape getBorder() {
+		return this.Border;
+	}
+
 	@Override
-	Shape getBorder() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setLoc(Point p) {
+		this.Border.setLoc(p);		
 	}
 }
