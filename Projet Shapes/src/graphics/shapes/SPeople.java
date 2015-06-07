@@ -1,16 +1,34 @@
 package graphics.shapes;
 
+import java.awt.Point;
+
 abstract class SPeople extends Shape {
 	
 	private SMale father;
 	private SFemale mother;
 	private SPeople[] children;
 	private int Nbchild;
+	private SText name;
 	
 	SPeople() {
 		father = new SMale();
 		mother = new SFemale();
 		Nbchild=0;
+		name = new SText(null,"");
+	}
+	
+	public int setName(String s) {
+		this.name.setText(s);
+		return 0;
+	}
+	
+	public String getName() {
+		return this.name.getText();
+	}
+	
+	public int setPosName(Point p) {
+		this.name.setLoc(p);
+		return 0;
 	}
 	
 	public int displayA(int x,int y) { //affiche une personne
