@@ -1,89 +1,113 @@
 package graphics.shapes.ui;
 
-import graphics.shapes.SCollection;
-import graphics.shapes.Shape;
-import graphics.shapes.attributes.SelectionAttributes;
-import graphics.ui.Controller;
-
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Iterator;
 
+import graphics.shapes.SCollection;
+import graphics.shapes.Shape;
+import graphics.ui.Controller;
+import graphics.shapes.attributes.SelectionAttributes;
+
+//Adaptation de l'archétype Controller (MVC) à notre application
 public class ShapesController extends Controller {
 
-	private int mouseX = 0;
-	private int mouseY = 0;
-	
+	private Shape target;
+	private Point Click = new Point();
+
 	public ShapesController(Object newModel) {
 		super(newModel);
 	}
 
-	public void mousePressed(MouseEvent e) {
-		System.out.println(e);
-		this.mouseX=e.getX();
-		this.mouseY=e.getY();
-	}
+	// Permet l'acquisition à l'endroit du clic souris
+	public Shape getTarget(MouseEvent e) {
+		SCollection model = (SCollection) this.getModel();
 
-	public void mouseReleased(MouseEvent e) {
-		System.out.println(e);
-	}
-
-	public void mouseClicked(MouseEvent e) {
-		System.out.println(e);
-		SCollection sc = (SCollection) this.getModel();
-		for (Iterator it= sc.list.iterator();it.hasNext();) {
-			Shape s = (Shape) it.next();
-			SelectionAttributes sa = (SelectionAttributes)
-					s.getAttributes("SelectionAttributes");
-			if (s.getBounds().contains(e.getX(), e.getY())) {
-				if (e.isShiftDown())
-					sa.toggleSelection();
-				else
-					sa.select();
-		} else {
-			if (!e.isShiftDown())
-				sa.unselect();
-			}
+		for (Iterator<Shape> it = model.iterator(); it.hasNext();) {
+			Shape s = it.next();
+			if (s.getBounds().contains(e.getPoint()))
+				return s;
 		}
-		super.getView().repaint();
+		return null;
 	}
 
-	public void mouseEntered(MouseEvent e) {
+	protected void translateSelected(int dx, int dy) {
+		SCollection model = (SCollection) this.getModel();
+		if (model == null)
+			return;
+		for (Iterator<Shape> it = model.iterator(); it.hasNext();) {
+			Shape s = (Shape) it.next();
+			if (((SelectionAttributes) s.getAttributes(SelectionAttributes.ID))
+					.isSelected())
+				s.translate(dx, dy);
+		}
+	}
+
+	public void unselectAll() {
+		SCollection model = (SCollection) this.getModel();
+		if (model == null)
+			return;
+		for (Iterator<Shape> it = model.iterator(); it.hasNext();) {
+			Shape s = (Shape) it.next();
+			((SelectionAttributes) s.getAttributes(SelectionAttributes.ID))
+					.unselect();
+		}
+	}
+
+	// Vérifie si la touche Shift est maintenue, pour les sélections multiples
+	public boolean shiftDown(KeyEvent k) {
+		return k.isShiftDown();
+	}
+
+	public void mouseControl(MouseEvent e) {
 		System.out.println(e);
-		super.getView().requestFocus();
-	}
-
-	public void mouseExited(MouseEvent e) {
-		System.out.println(e);
-	}
-
-	public void mouseMoved(MouseEvent evt) {
-		System.out.println(evt);
 	}
 
 	public void mouseDragged(MouseEvent evt) {
-		System.out.println(evt);
-		SelectionAttributes sa = new SelectionAttributes();
-		if (sa.isSelected()){
-			SCollection sc = (SCollection) this.getModel();
-			int mousex = evt.getX();
-			int mousey = evt.getY();
-			
+		this.translateSelected(evt.getPoint().x - Click.x, evt.getPoint().y
+				- Click.y);
+		Click = evt.getPoint();
+		this.getView().paintImmediately(this.getView().getBounds());
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		super.mouseClicked(e); // A essayer d'enlever, pour voir le
+								// fonctionnement
+		Shape t = this.getTarget(e);
+		if (t == null)
+			System.out.println("?");
+		else
+			System.out.println(this.getTarget(e));
+		this.getView().invalidate();
+	}
+
+	public void mousePressed(MouseEvent e) {
+		Click = (Point) e.getPoint().clone();
+		System.out.println("Le point sélectionné est " + Click);
+		target = this.getTarget(e);
+		if (!e.isShiftDown())
+			this.unselectAll();
+		if (target != null)
+			((SelectionAttributes) target.getAttributes().get(
+					SelectionAttributes.ID)).toggleSelection();
+		super.mousePressed(e);
+		System.out.println("Les éléments sélectionnés sont :");
+		SCollection model = (SCollection) this.getModel();
+		for (Iterator<Shape> it = model.iterator(); it.hasNext();) {
+			Shape s = it.next();
+			if (((SelectionAttributes) (s.getAttributes()
+					.get(SelectionAttributes.ID))).isSelected())
+				System.out.println(s);
 		}
-		
-		
 	}
 
-	public void keyTyped(KeyEvent evt) {
-		System.out.println(evt);
+	public void mouseReleased(MouseEvent e) {
+		super.mouseReleased(e);
 	}
 
-	public void keyPressed(KeyEvent evt) {
-		System.out.println(evt);
-	}
-
-	public void keyReleased(KeyEvent evt) {
-		System.out.println(evt);
+	public void mouseMoved(MouseEvent e) {
+		super.mouseMoved(e);
 	}
 
 }
