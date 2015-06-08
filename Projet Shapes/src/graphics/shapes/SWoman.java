@@ -6,22 +6,56 @@ import java.awt.Rectangle;
 public class SWoman extends SPeople {
 
 	private SCircle Border;
+	private final int XCenter = 150;
+	private final int YCenter = 200;
+	private final int XDelta = 100;
+	private final int YDelta = 100;
 	
 	public SWoman() {
 		super();
 		setBorder(new SCircle(null, 0));
 	}
 	
+	public SWoman(SWoman woman) {
+		setFather(woman.getDad());
+		setMother(woman.getMom());
+		setNbchild(woman.getNbChild());
+		setName(woman.getName());
+		setBorder(woman.getBorder());
+	}
+	
+	public int addMom(SWoman woman,boolean a) {
+		setMother(woman);
+		if (a) woman.addGirl(this,false);
+		return 0;
+	}
+	
+	public int addDad(SMan man,boolean a) {
+		setFather(man);
+		if (a) man.addGirl(this,false);
+		return 0;
+	}
+	
+	public int addGirl(SWoman woman,boolean a) {
+		addGirl(woman);
+		if (a) woman.addMom(this,false);
+		return 0;
+	}
+	
+	public int addBoy(SMan man,boolean a) {
+		addBoy(man);
+		if (a) man.addMom(this, false);
+		return 0;
+	}
+	
 	private void setBorder(SCircle sCircle) {
 		this.Border=sCircle;
 	}
 
-	@Override
 	public Point getLoc() {
 		return this.getBorder().getLoc();
 	}
 
-	@Override
 	public void setLoc(Point p) {
 		this.Border.setLoc(p);
 	}
@@ -31,7 +65,6 @@ public class SWoman extends SPeople {
 		setBorder(new SCircle(p,r));
 	}
 
-	@Override
 	public void translate(int x, int y) {
 		Point loc=this.getBorder().getLoc();
 		loc.x+=x;
@@ -39,12 +72,10 @@ public class SWoman extends SPeople {
 		setLoc(loc);
 	}
 
-	@Override
 	public Rectangle getBounds() {
 		return this.getBounds();
 	}
 
-	@Override
 	public void accept(ShapeVisitor sv) {
 		// TODO Auto-generated method stub	
 	}

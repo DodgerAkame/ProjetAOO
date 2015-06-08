@@ -8,12 +8,12 @@ abstract class SPeople extends Shape {
 	private SMan father;
 	private SWoman mother;
 	private SPeople[] children;
-	private int Nbchild;
+	private int nbChild;
 	private SText name;
 	
 	public SPeople() {
-		father = new SMan();
-		mother = new SWoman();
+		setFather(null);
+		setMother(null);
 		setNbchild(0);
 		name = new SText(null,"");
 	}
@@ -41,26 +41,54 @@ abstract class SPeople extends Shape {
 	}
 	
 	public SWoman getMom() {
-		return this.mother;
+		return this.getMother();
 	}
 	
 	public SMan getDad() {
-		return this.father;
+		return this.getFather();
 	}
 
 	public Shape getBorder() {
 		return Border;
 	}
 
-	public int getNbchild() {
-		return Nbchild;
+	public int getNbChild() {
+		return nbChild;
 	}
 
 	public void setNbchild(int nbchild) {
-		Nbchild = nbchild;
+		nbChild = nbchild;
 	}
 
 	public SPeople[] getChildren() {
 		return children;
+	}
+
+	public SMan getFather() {
+		return father;
+	}
+
+	public void setFather(SMan father) {
+		this.father = father;
+	}
+
+	public SWoman getMother() {
+		return mother;
+	}
+
+	public void setMother(SWoman mother) {
+		this.mother = mother;
+	}
+	
+	public int addBoy(SMan boy) {
+		children[nbChild]=new SMan(boy);
+		nbChild++;
+		return 0;
+	}
+	
+	public int addGirl(SWoman girl) {
+		children[nbChild]=new SWoman(girl);
+		nbChild++;
+		return 0;
 	}
 }
