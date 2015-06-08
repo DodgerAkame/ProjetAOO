@@ -63,6 +63,15 @@ public class ShapesController extends Controller {
 
 	public void mouseDragged(MouseEvent evt) {
 		System.out.println(evt);
+		SelectionAttributes sa = new SelectionAttributes();
+		if (sa.isSelected()){
+			SCollection sc = (SCollection) this.getModel();
+			int mousex = evt.getX();
+			int mousey = evt.getY();
+			
+		}
+		
+		
 	}
 
 	public void keyTyped(KeyEvent evt) {
