@@ -1,5 +1,7 @@
 package graphics.shapes;
 
+import graphics.shapes.ui.ShapeDraftman;
+
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -10,6 +12,7 @@ public class SMan extends SPeople {
 	private final int YCenter = 200;
 	private final int XDelta = 100;
 	private final int YDelta = 100;
+	private final ShapeDraftman SD = new ShapeDraftman(null);
 	
 	public SMan() { 
 		super();
@@ -77,5 +80,40 @@ public class SMan extends SPeople {
 
 	public void setLoc(Point p) {
 		this.Border.setLoc(p);		
+	}
+
+	@Override
+	public int displayF() { //affiche une famille
+		this.displayA(XCenter,YCenter);
+		if (this.getDad()!=null) getDad().displayA((int)(XCenter-1.2*XDelta), YCenter-YDelta);
+		if (this.getMom()!=null) getMom().displayA((int)(XCenter+1.2*XDelta), YCenter-YDelta);
+		switch (getNbChild()) {
+			case 1 : 	getChildren()[0].displayA(XCenter,YCenter+YDelta);
+						break;
+			case 2 : 	getChildren()[1].displayA((int) (XCenter-(0.8*XCenter)), YCenter+YDelta);
+						getChildren()[2].displayA((int) (XCenter+(0.8*XCenter)), YCenter+YDelta);
+						break;
+			case 3 : 	getChildren()[1].displayA((int) (XCenter-(1.2*XCenter)), YCenter+YDelta);
+						getChildren()[2].displayA(XCenter, YCenter+YDelta);
+						getChildren()[3].displayA((int) (XCenter+(1.2*XCenter)), YCenter+YDelta);
+						break;
+			case 4 : 	getChildren()[1].displayA((int) (XCenter-(1.5*XCenter)), YCenter+YDelta);
+						getChildren()[2].displayA((int) (XCenter-(0.5*XCenter)), YCenter+YDelta);
+						getChildren()[3].displayA((int) (XCenter+(0.5*XCenter)), YCenter+YDelta);
+						getChildren()[4].displayA((int) (XCenter+(1.5*XCenter)), YCenter+YDelta);
+						break;
+			default :	break;
+		}
+		return 0;
+	}
+
+	@Override
+	public int displayA(int x, int y) { //affiche une personne
+		Point p=new Point(x,y);
+		this.setLoc(p);
+		SD.visitRectangle(this.Border);
+		this.setPosName(p);
+		SD.visitText(this.getText());
+		return 0;
 	}
 } 

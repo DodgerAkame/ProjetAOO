@@ -23,6 +23,10 @@ abstract class SPeople extends Shape {
 		return 0;
 	}
 	
+	public SText getText() {
+		return this.name;
+	}
+	
 	public String getName() {
 		return this.name.getText();
 	}
@@ -32,13 +36,9 @@ abstract class SPeople extends Shape {
 		return 0;
 	}
 	
-	public int displayA(int x,int y) { //affiche une personne
-		return 0;
-	}
+	public abstract int displayA(int x,int y);
 	
-	public int displayF(int x, int y) { //affiche une personne, ses parents et ses enfants
-		return 0;
-	}
+	public abstract int displayF();
 	
 	public SWoman getMom() {
 		return this.getMother();
