@@ -3,17 +3,17 @@ package graphics.shapes;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-public class SMale extends SPeople {
+public class SWoman extends SPeople {
 
-	private SRectangle Border;
+	private SCircle Border;
 	
-	SMale() {
+	public SWoman() {
 		super();
-		setBorder(new SRectangle(null, 0, 0));
+		setBorder(new SCircle(null, 0));
 	}
 	
-	private void setBorder(SRectangle sr) {
-		this.Border=sr;
+	private void setBorder(SCircle sCircle) {
+		this.Border=sCircle;
 	}
 
 	@Override
@@ -22,11 +22,21 @@ public class SMale extends SPeople {
 	}
 
 	@Override
+	public void setLoc(Point p) {
+		this.Border.setLoc(p);
+	}
+	
+	public void setRad(int r) {
+		Point p=this.getBorder().getLoc();
+		setBorder(new SCircle(p,r));
+	}
+
+	@Override
 	public void translate(int x, int y) {
 		Point loc=this.getBorder().getLoc();
 		loc.x+=x;
 		loc.y+=y;
-		setLoc(loc);		
+		setLoc(loc);
 	}
 
 	@Override
@@ -39,19 +49,14 @@ public class SMale extends SPeople {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	public int addChild(SPeople tod, boolean i) {
 		addChild(tod);
-		if (i) tod.setDad(this,false);
+		if (i) tod.setMom(this,false);
 		return 0;
 	}
 
-	public Shape getBorder() {
+	public SCircle getBorder() {
 		return this.Border;
-	}
-
-	@Override
-	public void setLoc(Point p) {
-		this.Border.setLoc(p);		
 	}
 }

@@ -4,16 +4,17 @@ import java.awt.Point;
 
 abstract class SPeople extends Shape {
 	
-	private SMale father;
-	private SFemale mother;
+	private Shape Border;
+	private SMan father;
+	private SWoman mother;
 	private SPeople[] children;
 	private int Nbchild;
 	private SText name;
 	
-	SPeople() {
-		father = new SMale();
-		mother = new SFemale();
-		Nbchild=0;
+	public SPeople() {
+		father = new SMan();
+		mother = new SWoman();
+		Nbchild = 0;
 		name = new SText(null,"");
 	}
 	
@@ -39,22 +40,22 @@ abstract class SPeople extends Shape {
 		return 0;
 	}
 	
-	public SFemale getMom() {
+	public SWoman getMom() {
 		return this.mother;
 	}
 	
-	public int setMom(SFemale Mom,boolean i) { //fixe/modifie la mère
+	public int setMom(SWoman Mom,boolean i) { //fixe/modifie la mère
 		int a = 0;
 		mother = Mom;
 		if (i) Mom.addChild(this,false);
 		return a;
 	}
 	
-	public SMale getDad() {
+	public SMan getDad() {
 		return this.father;
 	}
 	
-	public int setDad(SMale Dad,boolean i) { //fixe/modifie le père
+	public int setDad(SMan Dad,boolean i) { //fixe/modifie le père
 		int a = 0;
 		father = Dad;
 		if (i) Dad.addChild(this,false);
@@ -68,4 +69,12 @@ abstract class SPeople extends Shape {
 	}
 	
 	abstract int addChild(SPeople tod, boolean i);
+
+	public Shape getBorder() {
+		return Border;
+	}
+
+	public void setBorder(Shape border) {
+		Border = border;
+	}
 }
