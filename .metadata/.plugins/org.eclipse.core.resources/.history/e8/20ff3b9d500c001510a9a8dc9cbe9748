@@ -1,5 +1,0 @@
-package graphics.shapes;
-
-abstract class SPeople extends Shape {
-	
-}
