@@ -28,7 +28,7 @@ public class ShapesController extends Controller {
 
 	public void mouseClicked(MouseEvent e) {
 		SCollection sc = (SCollection) this.getModel();
-		for (Iterator it= sc.list.iterator();it.hasNext();) {
+		for (Iterator it= sc.liste.iterator();it.hasNext();) {
 			Shape s = (Shape) it.next();
 			SelectionAttributes sa = (SelectionAttributes)
 					s.getAttributes("SelectionAttributes");
@@ -39,7 +39,7 @@ public class ShapesController extends Controller {
 					sa.select();
 		} else {
 			if (!e.isShiftDown())
-				sa.unselect();
+				sa.deselect();
 			}
 		}
 		super.getView().repaint();
