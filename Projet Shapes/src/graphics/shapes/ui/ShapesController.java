@@ -19,16 +19,19 @@ public class ShapesController extends Controller {
 	}
 
 	public void mousePressed(MouseEvent e) {
+		System.out.println(e);
 		this.mouseX=e.getX();
 		this.mouseY=e.getY();
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		System.out.println(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		System.out.println(e);
 		SCollection sc = (SCollection) this.getModel();
-		for (Iterator it= sc.list.iterator();it.hasNext();) {
+		for (Iterator it= sc.liste.iterator();it.hasNext();) {
 			Shape s = (Shape) it.next();
 			SelectionAttributes sa = (SelectionAttributes)
 					s.getAttributes("SelectionAttributes");
@@ -39,32 +42,39 @@ public class ShapesController extends Controller {
 					sa.select();
 		} else {
 			if (!e.isShiftDown())
-				sa.unselect();
+				sa.deselect();
 			}
 		}
 		super.getView().repaint();
 	}
 
 	public void mouseEntered(MouseEvent e) {
+		System.out.println(e);
 		super.getView().requestFocus();
 	}
 
 	public void mouseExited(MouseEvent e) {
+		System.out.println(e);
 	}
 
 	public void mouseMoved(MouseEvent evt) {
+		System.out.println(evt);
 	}
 
 	public void mouseDragged(MouseEvent evt) {
+		System.out.println(evt);
 	}
 
 	public void keyTyped(KeyEvent evt) {
+		System.out.println(evt);
 	}
 
 	public void keyPressed(KeyEvent evt) {
+		System.out.println(evt);
 	}
 
 	public void keyReleased(KeyEvent evt) {
+		System.out.println(evt);
 	}
 
 }
