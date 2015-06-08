@@ -1,6 +1,7 @@
 package graphics.shapes;
 
 import java.awt.Point;
+import java.util.Scanner;
 
 abstract class SPeople extends Shape {
 	
@@ -8,14 +9,20 @@ abstract class SPeople extends Shape {
 	private SMan father;
 	private SWoman mother;
 	private SPeople[] children;
-	private int Nbchild;
+	private int nbChild;
 	private SText name;
 	
 	public SPeople() {
-		father = new SMan();
-		mother = new SWoman();
-		Nbchild = 0;
+		Border=null;
+		father = null;
+		mother = null;
+		nbChild = 0;
 		name = new SText(null,"");
+	}
+	
+	public int delChildren() {
+		nbChild=0;
+		return nbChild;
 	}
 	
 	public int setName(String s) {
@@ -32,11 +39,10 @@ abstract class SPeople extends Shape {
 		return 0;
 	}
 	
-	public int displayA(int x,int y) { //affiche une personne
-		return 0;
-	}
+	public abstract int displayA(int x,int y);
 	
 	public int displayF(int x, int y) { //affiche une personne, ses parents et ses enfants
+		
 		return 0;
 	}
 	
@@ -44,32 +50,14 @@ abstract class SPeople extends Shape {
 		return this.mother;
 	}
 	
-	public int setMom(SWoman Mom,boolean i) { //fixe/modifie la mère
-		int a = 0;
-		mother = Mom;
-		if (i) Mom.addChild(this,false);
-		return a;
-	}
+	public abstract int setMom(SWoman Mom,boolean i);
 	
 	public SMan getDad() {
 		return this.father;
 	}
 	
-	public int setDad(SMan Dad,boolean i) { //fixe/modifie le père
-		int a = 0;
-		father = Dad;
-		if (i) Dad.addChild(this,false);
-		return a;
-	}
-
-	public int addChild(SPeople tod) {
-		children[Nbchild]=tod;
-		Nbchild++;
-		return 0;
-	}
+	public abstract int setDad(SMan Dad,boolean i);
 	
-	abstract int addChild(SPeople tod, boolean i);
-
 	public Shape getBorder() {
 		return Border;
 	}
