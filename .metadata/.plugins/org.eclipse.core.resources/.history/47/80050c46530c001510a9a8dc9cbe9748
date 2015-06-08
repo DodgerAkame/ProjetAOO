@@ -1,0 +1,41 @@
+package graphics.shapes;
+
+abstract class SPeople extends Shape {
+	
+	private Shape Border;
+	private SMale father;
+	private SFemale mother;
+	protected SPeople[] children;
+	protected int Nbchild;
+	
+	SPeople() {
+		father = new SMale();
+		mother = new SFemale();
+		Nbchild=0;
+	}
+	
+	abstract Shape getBorder();
+	abstract Shape 
+	
+	public int displayA(int x,int y) { //affiche une personne
+		return 0;
+	}
+	
+	public int displayF(int x, int y) { //affiche une personne, ses parents et ses enfants
+		return 0;
+	}
+	
+	public int setMom(SFemale Mom,boolean i) { //fixe/modifie la mère
+		int a = 0;
+		mother = Mom;
+		if (i) Mom.addChild(this,false);
+		return a;
+	}
+	
+	public int setDad(SMale Dad,boolean i) { //fixe/modifie le père
+		int a = 0;
+		father = Dad;
+		if (i) Dad.addChild(this,false);
+		return a;
+	}
+}
