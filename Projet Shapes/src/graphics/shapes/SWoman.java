@@ -46,14 +46,7 @@ public class SWoman extends SPeople {
 
 	@Override
 	public void accept(ShapeVisitor sv) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public int addChild(SPeople tod, boolean i) {
-		addChild(tod);
-		if (i) tod.setMom(this,false);
-		return 0;
+		// TODO Auto-generated method stub	
 	}
 
 	public SCircle getBorder() {

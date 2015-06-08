@@ -14,7 +14,7 @@ abstract class SPeople extends Shape {
 	public SPeople() {
 		father = new SMan();
 		mother = new SWoman();
-		Nbchild = 0;
+		setNbchild(0);
 		name = new SText(null,"");
 	}
 	
@@ -44,37 +44,23 @@ abstract class SPeople extends Shape {
 		return this.mother;
 	}
 	
-	public int setMom(SWoman Mom,boolean i) { //fixe/modifie la mère
-		int a = 0;
-		mother = Mom;
-		if (i) Mom.addChild(this,false);
-		return a;
-	}
-	
 	public SMan getDad() {
 		return this.father;
 	}
-	
-	public int setDad(SMan Dad,boolean i) { //fixe/modifie le père
-		int a = 0;
-		father = Dad;
-		if (i) Dad.addChild(this,false);
-		return a;
-	}
-
-	public int addChild(SPeople tod) {
-		children[Nbchild]=tod;
-		Nbchild++;
-		return 0;
-	}
-	
-	abstract int addChild(SPeople tod, boolean i);
 
 	public Shape getBorder() {
 		return Border;
 	}
 
-	public void setBorder(Shape border) {
-		Border = border;
+	public int getNbchild() {
+		return Nbchild;
+	}
+
+	public void setNbchild(int nbchild) {
+		Nbchild = nbchild;
+	}
+
+	public SPeople[] getChildren() {
+		return children;
 	}
 }

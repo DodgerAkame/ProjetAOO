@@ -36,18 +36,7 @@ public class SMan extends SPeople {
 
 	@Override
 	public void accept(ShapeVisitor sv) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public int addChild(SPeople tod, boolean i) {
-		addChild(tod);
-		if (i) tod.setDad(this,false);
-		return 0;
-	}
-
-	public Shape getBorder() {
-		return this.Border;
+		// TODO Auto-generated method stub	
 	}
 
 	@Override
