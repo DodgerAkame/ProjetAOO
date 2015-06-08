@@ -19,7 +19,7 @@ abstract class SPeople extends Shape {
 	}
 	
 	public int setName(String s) {
-		this.name.setText(s);
+		//this.name.setText(s);
 		return 0;
 	}
 	
