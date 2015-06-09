@@ -7,29 +7,27 @@ import java.util.*;
 
 public abstract class Shape {
 
-	private HashMap<String, Attributes> attributes;
-
-	public Shape() {
-		attributes = new HashMap<String, Attributes>();
-	}
+	protected TreeMap<String, Attributes> attributes = new TreeMap<String, Attributes>();
 
 	public void addAttributes(Attributes a) {
-		attributes.put(a.getID(), a);
-
+		this.attributes.put(a.getId(), a);
 	}
 
 	public Attributes getAttributes(String s) {
-		return (Attributes) attributes.get(s);
+		return (Attributes) this.attributes.get(s);
 	}
 
 	public abstract Point getLoc();
 
 	public abstract void setLoc(Point p);
 
-	public abstract void translate(int x, int y);
+	public abstract void translate(int dx, int dy);
 
 	public abstract Rectangle getBounds();
 
-	public abstract void accept(ShapeVisitor sv);
+	public abstract void accept(graphics.shapes.ShapeVisitor v);
 
+	public TreeMap<String, Attributes> getAttributes() {
+		return attributes;
+	}
 }

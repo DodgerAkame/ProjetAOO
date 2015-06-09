@@ -1,37 +1,35 @@
 package graphics.shapes.ui; //redefinir une fonction specifique (voir Graphics)
 
-import graphics.shapes.SCollection;
+import graphics.shapes.Shape;
 import graphics.ui.Controller;
 import graphics.ui.View;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+@SuppressWarnings("serial")
+// oubli du SerialVersionUid dans une classe déclarée Serializable
 public class ShapesView extends View {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1732482651961386050L;
+	private ShapeDraftman draftman;
 
 	public ShapesView(Object model) {
 		super(model);
+		this.draftman = new ShapeDraftman();
 	}
 
-	protected void paintComponant(Graphics g) {
-		super.paintComponent(g);
-		System.out.println("Test");
-
-		Graphics2D f = (Graphics2D) g;
-		ShapeDraftman d = new ShapeDraftman(f);
-		SCollection m = (SCollection) this.getModel();
-		if (m != null)
-			m.accept(d);
+	protected void paintComponent(Graphics arg0) {
+		super.paintComponent(arg0);
+		this.draftman.setGraphics((Graphics2D) arg0);
+		Shape model = (Shape) this.getModel();
+		if (model == null)
+			return;
+		model.accept(this.draftman);
 	}
 
+	// Association du Controller avec la vue
 	public Controller defaultController(Object model) {
 		return new ShapesController(model);
 	}
-
 
 }

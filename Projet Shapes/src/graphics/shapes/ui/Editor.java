@@ -14,6 +14,8 @@ import java.awt.Point;
 
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
+//Oubli du SerialVersionUid dans une classe déclarée Serializable
 public class Editor extends JFrame {
 	
 	ShapesView sview;
@@ -31,7 +33,7 @@ public class Editor extends JFrame {
 		this.buildModel();
 
 		this.sview = new ShapesView(this.model);
-		this.sview.setPreferredSize(new Dimension(300, 300));
+		this.sview.setPreferredSize(new Dimension(400, 300));
 		this.getContentPane().add(this.sview, java.awt.BorderLayout.CENTER);
 	}
 

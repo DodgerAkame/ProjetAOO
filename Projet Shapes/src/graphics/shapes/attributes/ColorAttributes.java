@@ -4,16 +4,16 @@ import java.awt.Color; //Pour les booleens de couleurs
 
 public class ColorAttributes extends Attributes {
 
-	public boolean filled;
-	public boolean stroked;
+	public boolean filled=true;
+	public boolean stroked=false;
 	public Color filledColor;
 	public Color strokedColor;
 
 	public static final String ID = "color";
-	public final Color BLACK = null;
 
 	public ColorAttributes() { // Par defaut
-
+		this.strokedColor=Color.BLACK;
+		this.filledColor=Color.WHITE;
 	}
 
 	public ColorAttributes(boolean filled, boolean stroked, Color filledColor,
@@ -24,7 +24,7 @@ public class ColorAttributes extends Attributes {
 		this.strokedColor = strokedColor;
 	}
 
-	public String getID() {
+	public String getId() {
 		return ID;
 	}
 

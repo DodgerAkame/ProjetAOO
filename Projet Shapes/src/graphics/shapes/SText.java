@@ -11,8 +11,6 @@ public class SText extends Shape {
 	private Point loc;
 
 	public SText(Point point, String string) {
-		super(); // On passe a la super classe, je crois que c'est parce que le
-					// texte est dans un cadre
 		this.loc = point;
 		this.text = string;
 	}
@@ -39,14 +37,15 @@ public class SText extends Shape {
 	}
 
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		FontAttributes fa = (FontAttributes) this.getAttributes("Font");
-		Rectangle result=fa.getBounds(text);
-		result.setLocation(loc.x-2, loc.y-result.height);
-		result.height=result.height+3;
-		result.width=result.width+6;
-		return result;
-		//C'est moche
+		FontAttributes fa = new FontAttributes();
+		Rectangle rect = new Rectangle();
+		if (attributes.get(FontAttributes.ID) != null)
+			rect = ((FontAttributes) attributes.get(FontAttributes.ID))
+					.getBounds(text);
+		rect.height = fa.getBounds(text).height;
+		rect.width = fa.getBounds(text).width;
+		rect.setLocation(loc.x, loc.y - fa.getBounds(text).height);
+		return rect;
 	}
 
 	public void accept(ShapeVisitor sv) {

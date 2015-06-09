@@ -12,7 +12,7 @@ public class SMan extends SPeople {
 	private final int YCenter = 200;
 	private final int XDelta = 100;
 	private final int YDelta = 100;
-	private final ShapeDraftman SD = new ShapeDraftman(null);
+	private final ShapeDraftman SD = new ShapeDraftman();
 	
 	public SMan() { 
 		super();

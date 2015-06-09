@@ -7,13 +7,10 @@ import java.awt.Rectangle;
 
 public class SRectangle extends Shape {
 
-	private Rectangle rect = new Rectangle(0, 0, 0, 0);
+	private Rectangle rect;
 
-	public SRectangle(Point point, int w, int h) {
-		this.rect.x = point.x;
-		this.rect.y = point.y;
-		this.rect.width = w;
-		this.rect.height = h;
+	public SRectangle(Point loc, int w, int h) {
+		rect = new Rectangle(loc.x,loc.y,w,h);
 	}
 
 	public Rectangle getRect() {
@@ -36,7 +33,7 @@ public class SRectangle extends Shape {
 	}
 
 	public Rectangle getBounds() {
-		return (Rectangle) rect.clone();
+		return rect.getBounds();
 	}
 
 	public void accept(ShapeVisitor sv) {

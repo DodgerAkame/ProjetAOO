@@ -4,7 +4,6 @@ import graphics.shapes.SCircle;
 import graphics.shapes.SCollection;
 import graphics.shapes.SRectangle;
 import graphics.shapes.SText;
-import graphics.shapes.Shape;
 import graphics.shapes.ShapeVisitor;
 import graphics.shapes.attributes.ColorAttributes;
 import graphics.shapes.attributes.FontAttributes;
@@ -12,107 +11,121 @@ import graphics.shapes.attributes.SelectionAttributes;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.Iterator;
 
 public class ShapeDraftman implements ShapeVisitor {
 
-	private ColorAttributes color;
+	private final static ColorAttributes color = new ColorAttributes();
 	private Graphics2D g;
+	private final static FontAttributes DEFAULT_FONT_ATTRIBUTES = new FontAttributes();
 
-	public ColorAttributes DEFAULTCOLORATTRIBUTES = new ColorAttributes(true,
-			false, color.BLACK, color.BLACK);
+	public Graphics2D getGraphics() {
+		return g;
+	}
 
-	public ShapeDraftman(Graphics2D g) {
+	public void setGraphics(Graphics2D g) {
 		this.g = g;
 	}
-
-	public void selectedShape(Shape e) {
-		SelectionAttributes s = (SelectionAttributes) e
-				.getAttributes("SelectionAttrubutes");
-		if (s.isSelected()) {
-			g.setColor(Color.BLACK);
-			g.drawOval(e.getBounds().x - 4, e.getBounds().y - 4, 4, 4);
-			g.drawOval(e.getBounds().x + e.getBounds().width, e.getBounds().y
-					+ e.getBounds().height, 4, 4);
-		}
+	
+	public void selectedShape(Rectangle rectangle) {
+		g.setColor(Color.BLACK);
+		g.drawOval(rectangle.getBounds().x - 4, rectangle.getBounds().y - 4, 4, 4);
+		g.drawOval(rectangle.getBounds().x + rectangle.getBounds().width, rectangle.getBounds().y
+					+ rectangle.getBounds().height, 4, 4);
 	}
 
-	public void visitRectangle(SRectangle sr) {
-		// TODO Auto-generated method stub
-		if (sr.getAttributes("ColorAttributes") == null) {
-			color = DEFAULTCOLORATTRIBUTES;
-		} else
-			color = (ColorAttributes) sr.getAttributes("ColorAttributes");
-		if (color.getFilled()) {
-			g.setColor(color.getFilledColor());
-			g.fillRect(sr.getRect().x, sr.getRect().y, sr.getRect().width,
-					sr.getRect().height);
+	public void visitRectangle(SRectangle r) {
+		Rectangle rect = r.getBounds();
+		ColorAttributes ca = (ColorAttributes) r
+				.getAttributes(ColorAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) r
+				.getAttributes(SelectionAttributes.ID);
+
+		if (ca == null)
+			ca = color;
+
+		// Il faut remplir le fond avant de dessiner le contour
+		if (ca.filled) {
+			g.setColor(ca.filledColor);
+			g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
-		if (color.getStroked()) {
-			g.setColor(color.getStrokedColor());
-			g.drawRect(sr.getRect().x, sr.getRect().y, sr.getRect().width,
-					sr.getRect().height);
+
+		if (ca.stroked) {
+			g.setColor(ca.strokedColor);
+			g.drawRect(rect.x, rect.y, rect.width, rect.height);
 		}
+
+		if (sa.isSelected())
+			this.selectedShape(r.getBounds());
+	}
+
+	public void visitCircle(SCircle c) {
+		Rectangle rect = c.getBounds();
+		ColorAttributes ca = (ColorAttributes) c
+				.getAttributes(ColorAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) c
+				.getAttributes(SelectionAttributes.ID);
+
+		if (ca == null)
+			ca = color;
+
+		// Oval dessine le cercle inscrit dans le rectangle
+		if (ca.filled) {
+			g.setColor(ca.filledColor);
+			g.fillOval(rect.x, rect.y, rect.width, rect.height);
+		}
+
+		if (ca.stroked) {
+			g.setColor(ca.strokedColor);
+			g.drawOval(rect.x, rect.y, rect.width, rect.height);
+		}
+
+		if (sa.isSelected())
+			this.selectedShape(c.getBounds());
+	}
+
+	public void visitText(SText t) {
+		Rectangle rect = t.getBounds();
+		Point loc = t.getLoc();
+		FontAttributes fa = (FontAttributes) t.getAttributes(FontAttributes.ID);
+		ColorAttributes ca = (ColorAttributes) t
+				.getAttributes(ColorAttributes.ID);
+		SelectionAttributes sa = (SelectionAttributes) t
+				.getAttributes(SelectionAttributes.ID);
+
+		if (fa == null)
+			fa = DEFAULT_FONT_ATTRIBUTES;
+
+		if (ca == null)
+			ca = color;
+
+		if (ca.filled) {
+			g.setColor(ca.filledColor);
+			g.fillRect(rect.x, rect.y, rect.width, rect.height);
+		}
+
+		if (ca.stroked) {
+			g.setFont(fa.font);
+			g.setColor(ca.strokedColor);
+		}
+
+		g.drawString(t.getText(), loc.x, loc.y);
+
+		if (sa.isSelected())
+			this.selectedShape(t.getBounds());
 		
-
 	}
 
-	public void visitCircle(SCircle sc) {
-		// TODO Auto-generated method stub
-
-		if (sc.getAttributes("ColorAttributes") != null) {
-			if (((ColorAttributes) sc.getAttributes("ColorAttributes"))
-					.getFilled()) {
-				g.setColor(((ColorAttributes) sc
-						.getAttributes("ColorAttributes")).getFilledColor());
-				g.fillOval(sc.getBounds().x, sc.getBounds().y,
-						sc.getBounds().width, sc.getBounds().height);
-			} else {
-				g.setColor(Color.BLACK);
-				g.drawOval(sc.getBounds().x, sc.getBounds().y,
-						sc.getBounds().width, sc.getBounds().height);
-			}
-			if (((ColorAttributes) sc.getAttributes("ColorAttributes"))
-					.getStroked()) {
-				g.setColor(((ColorAttributes) sc
-						.getAttributes("ColorAttributes")).getStrokedColor());
-				g.drawRect(sc.getBounds().x, sc.getBounds().y,
-						sc.getBounds().width, sc.getBounds().height);
-			}
-		} else {
-			g.setColor(Color.BLACK);
-			g.drawOval(sc.getBounds().x, sc.getBounds().y,
-					sc.getBounds().width, sc.getBounds().height);
+	public void visitCollection(SCollection collection) {
+		SelectionAttributes sa = (SelectionAttributes) collection
+				.getAttributes(SelectionAttributes.ID);
+		for (int i = 0; i < collection.getShapes().size(); i++) {
+			collection.getShapes().get(i).accept(this);
 		}
-	}
-
-	public void visitText(SText st) {
-		// TODO Auto-generated method stub
-		if ((FontAttributes) st.getAttributes("Font") != null) {
-			FontAttributes fa = (FontAttributes) st.getAttributes("Font");
-			fa.g = g;
-			Rectangle tRect = st.getBounds();
-			if (st.getAttributes("ColorAttributes") == null) {
-				color = DEFAULTCOLORATTRIBUTES;
-			} else
-				color = (ColorAttributes) st.getAttributes("ColorAttributes");
-			if (color.getFilled()) {
-				g.setColor(color.getFilledColor());
-				g.fillRect(tRect.x, tRect.y, tRect.width, tRect.height);
-			}
-			if (color.getStroked()) {
-				g.setColor(color.getStrokedColor());
-				g.drawRect(tRect.x, tRect.y, tRect.width, tRect.height);
-			}
-		}
-		g.drawString(st.getText(), st.getLoc().x, st.getLoc().y);
-	}
-
-	public void visitCollection(SCollection sco) {
-		// TODO Auto-generated method stub
-		for (Iterator it = sco.liste.iterator(); it.hasNext();)
-			((Shape) it.next()).accept(this);
+		if (sa.isSelected())
+			this.selectedShape(collection.getBounds());
+		
 	}
 
 }

@@ -4,8 +4,8 @@ import java.awt.*;
 
 public class SCircle extends Shape {
 
-	private int radius;
-	private Point loc;
+	private int radius=0;
+	private Point loc=null;
 
 	public SCircle(Point point, int radius){
 		this.loc= point;
@@ -37,6 +37,6 @@ public class SCircle extends Shape {
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(2*radius,2*radius);
+		return new Rectangle(new Point(loc.x,loc.y),new Dimension(radius,radius));
 	}
 }

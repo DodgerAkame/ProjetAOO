@@ -2,7 +2,10 @@ package graphics.ui;
 
 import javax.swing.JPanel;
 
+@SuppressWarnings("serial")
+// oubli du SerialVersionUid dans une classe déclarée Serializable
 public abstract class View extends JPanel {
+
 	private Object model;
 	private Controller controller;
 
@@ -31,4 +34,5 @@ public abstract class View extends JPanel {
 	final public Controller getController() {
 		return this.controller;
 	}
+
 }

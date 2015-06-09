@@ -1,7 +1,20 @@
 package graphics.shapes.attributes;
 
-public abstract class Attributes {
+public class Attributes {
 
-	public abstract String getID();
+	private String ID;
+	private final static String DEFAULT_ID = "default";
+
+	public Attributes() {
+		this.ID = DEFAULT_ID;
+	}
+
+	public Attributes(String ID) {
+		this.ID = ID;
+	}
+
+	public String getId() {
+		return ID;
+	}
 
 }
